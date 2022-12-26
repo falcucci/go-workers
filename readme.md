@@ -20,7 +20,7 @@ go get github.com/benmanns/goworkers
 
 As an example you can check it out the `cmd` folder. In this folder you can see how to use the scripts to extract data from a database, transform it and load it into another database.
 
-```go
+```bash
 go-workers <script>
 ```
 
