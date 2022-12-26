@@ -6,14 +6,13 @@ Just add your scripts in the `cmd` folder and run `go-workers` to see the list o
 
 It is inspired by own [plugn-run](https://github.com/falcucci/plugin-run), so basically it's a go version of it.
 
-
 *This is a work in progress. It is not yet ready for use.*
 
 Soon as possible I will add some examples about how to extract data from spreadsheet or migrate informations from a database to another using temporary tables and triggers.
 
 ### Installation
 ```bash
-go get github.com/benmanns/goworkers
+go get github.com/falcucci/go-workers
 ```
 
 ### Usage
