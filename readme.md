@@ -4,7 +4,7 @@ Go-workers is a CLI library for processing jobs asynchronously.
 You can create any kind of worker that you want, and it will be ran as your command line parameters are defined.
 Just add your scripts in the `cmd` folder and run `go-workers` to see the list of available workers.
 
-It is inspired by [plugn-run](https://github.com/falcucci/plugin-run), basically it's a go version of it.
+It is inspired by own [plugn-run](https://github.com/falcucci/plugin-run), so basically it's a go version of it.
 
 
 *This is a work in progress. It is not yet ready for use.*
