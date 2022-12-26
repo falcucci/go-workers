@@ -16,9 +16,8 @@ limitations under the License.
 
 package main
 
-import "fmt"
+import "go-workers/cmd"
 
-// create a main function and print hello world
 func main() {
-	fmt.Println("Hello World")
+	cmd.Execute()
 }

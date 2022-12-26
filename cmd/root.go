@@ -12,3 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 package cmd
+
+import (
+	"log"
+
+	"github.com/spf13/cobra"
+)
+
+// RootCmd represents the base command when called without any subcommands
+var RootCmd = &cobra.Command{
+	Use:   "go-workers",
+	Short: "A simple ETL tool",
+	Long:  `A simple ETL tool that allows you to run multiple workers`,
+}
+
+// Execute adds all child commands to the root command sets flags appropriately.
+// This is called by main.main(). It only needs to happen once to the rootCmd.
+func Execute() {
+	if err := RootCmd.Execute(); err != nil {
+		log.Fatal(err)
+	}
+}
