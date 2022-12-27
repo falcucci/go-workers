@@ -1,8 +1,0 @@
-APPLICATION=go-worker
-DATABASE_HOST=localhost
-DATABASE_NAME=people
-DATABASE_PASSWORD=localhost
-DATABASE_USERNAME=localhost
-SPREAD_SHEET_ID=<drive spreadsheet id to get printers>
-SCHEDULE="@every 5m"
-SHOW_SQL=true
