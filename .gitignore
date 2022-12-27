@@ -1,4 +1,4 @@
-.env.example
+.env
 
 # Binaries for programs and plugins
 *.exe
