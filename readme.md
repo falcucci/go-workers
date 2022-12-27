@@ -28,23 +28,26 @@ go-workers <script>
 
 The following environment variables can be used to configure the behavior of the application:
 
-`ApplicationName: The name of the application.
-`Env: The environment in which the application is running (e.g. "production", "staging", "development").
-`DatabaseName: The name of the database to connect to.
-`UserName: The username to use when connecting to the database.
-`Host: The hostname of the database server.
-`Password: The password to use when connecting to the database.
-`Port: The port number to use when connecting to the database.
-`SpreadSheetId: The ID of the Google Spreadsheet to use.
-`RefreshToken: The refresh token to use when authenticating with Google.
-`Kind: The kind of resource to use (e.g. "calendar", "spreadsheet").
-`Team: The team that the application belongs to.
-`LogrusLogLevel: The log level to use with the Logrus logging library.
-`BurzumLogLevel: The log level to use with the Burzum logging library.
-`BurzumToken: The token to use with the Burzum logging library.
-`Schedule: The schedule on which to run certain tasks (e.g. "0 0 * * *" for daily at midnight).
-`ShowSql: A flag indicating whether or not to log SQL queries.
-`MaxConcurrentProcs: The maximum number of concurrent processes to run.
+| Variable              | Description                                                                |
+|-----------------------|----------------------------------------------------------------------------|
+| `ApplicationName`     | The name of the application.                                               |
+| `Env`                 | The environment in which the application is running (e.g. "production", "staging", "development"). |
+| `DatabaseName`        | The name of the database to connect to.                                    |
+| `UserName`            | The username to use when connecting to the database.                       |
+| `Host`                | The hostname of the database server.                                       |
+| `Password`            | The password to use when connecting to the database.                       |
+| `Port`                | The port number to use when connecting to the database.                    |
+| `SpreadSheetId`       | The ID of the Google Spreadsheet to use.                                   |
+| `RefreshToken`        | The refresh token to use when authenticating with Google.                  |
+| `Kind`                | The kind of resource to use (e.g. "calendar", "spreadsheet").             |
+| `Team`                | The team that the application belongs to.                                  |
+| `LogrusLogLevel`      | The log level to use with the Logrus logging library.                     |
+| `BurzumLogLevel`      | The log level to use with the Burzum logging library.                     |
+| `BurzumToken`         | The token to use with the Burzum logging library.                         |
+| `Schedule`            | The schedule on which to run certain tasks (e.g. "0 0 * * *" for daily at midnight). |
+| `ShowSql`             | A flag indicating whether or not to log SQL queries.                       |
+| `MaxConcurrentProcs`  | The maximum number of concurrent processes to run.                         |
+
 
 ### ETL Scripts
 
