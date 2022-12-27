@@ -52,7 +52,9 @@ func SetupDB() *gorm.DB {
 		)
 	}
 
+	// show sql queries in console for debug
 	db.LogMode(Env.ShowSql)
+
 	err = db.DB().Ping()
 	if err != nil {
 		logger.LogIt(
