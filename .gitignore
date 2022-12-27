@@ -1,0 +1,37 @@
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, build with ?   	go-workers	[no test files]
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories
+/vendor/
+
+# IDEs and editors
+/.idea
+.vscode
+*.sublime-workspace
+
+# User-specific stuff
+.DS_Store
+*.swp
+.gitconfig
+.bash_history
+.bash_profile
+.bash_logout
+.bashrc
+.local
+
+# GoReleaser
+.goreleaser.yml
+.goreleaser_release.yml
+.goreleaser_last_release.yml
+

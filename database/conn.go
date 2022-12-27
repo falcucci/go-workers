@@ -15,6 +15,8 @@ package database
 
 import (
 	"fmt"
+	"go-workers/config"
+	"log"
 
 	_ "log"
 
@@ -25,7 +27,8 @@ import (
 )
 
 var (
-	DB = SetupDB()
+	DB  = SetupDB()
+	Env = config.Env
 )
 
 // Method to create a connection and returns the database built-in methods
@@ -43,13 +46,7 @@ func SetupDB() *gorm.DB {
 
 	db, err := gorm.Open("postgres", connStr)
 	if err != nil {
-		logger.LogIt(
-			logger.LevelError,
-			"database",
-			"SetupDB",
-			"sql.Open",
-			err.Error(),
-		)
+		log.Fatal(err.Error())
 	}
 
 	// show sql queries in console for debug
@@ -57,13 +54,7 @@ func SetupDB() *gorm.DB {
 
 	err = db.DB().Ping()
 	if err != nil {
-		logger.LogIt(
-			logger.LevelError,
-			"database",
-			"SetupDB",
-			"db.DB().Ping",
-			err.Error(),
-		)
+		log.Fatal(err.Error())
 	}
 
 	return db
