@@ -61,7 +61,7 @@ func GetConfig() Config {
 	config.Password = os.Getenv("DATABASE_PASSWORD")
 	config.Port = os.Getenv("DATABASE_PORT")
 	config.ApplicationName = os.Getenv("APPLICATION")
-	config.SpreadSheetId = os.Getenv("PRINTERS_SPREAD_SHEET_ID")
+	config.SpreadSheetId = os.Getenv("SPREAD_SHEET_ID")
 	config.RefreshToken = os.Getenv("REFRESH_TOKEN")
 	config.Env = os.Getenv("ENV")
 	config.Kind = os.Getenv("KIND")

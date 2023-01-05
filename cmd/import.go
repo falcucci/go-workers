@@ -90,7 +90,7 @@ func getInsertPeopleQuery(tempTable string) string {
 	pplSheetValues := extractor.GetPeopleSheetValues()
 	people := formatPeopleValues(pplSheetValues)
 	insertQuery :=
-		`INSERT INTO %s (id, description)
+		`INSERT INTO %s (name, surname)
 		 VALUES %s`
 	query := fmt.Sprintf(insertQuery, tempTable, people)
 	return query

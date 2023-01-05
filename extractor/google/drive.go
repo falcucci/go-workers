@@ -39,7 +39,8 @@ func GetPeopleSheetValues() *sheets.ValueRange {
 		log.Fatalf("Unable to retrieve Drive client: %v", err)
 	}
 
-	readRangePeople := fmt.Sprintf("!A2:B")
+	print("Getting people sheet values...")
+	readRangePeople := fmt.Sprintf("!A1:B")
 	people, err := srv.Spreadsheets.Values.Get(
 		Env.SpreadSheetId,
 		readRangePeople,
