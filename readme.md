@@ -90,11 +90,14 @@ For example:
 ./go-workers import
 ```
 
+The `import` command tries to mirror the behavior of the `import` command in the [Google Sheets API](https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values/get).
+
+It will import the data from the specified spreadsheet into the specified database. The command will also update the the values if the data in the spreadsheet has changed. As delete it aswell.
+
 The `import` command will prompt you for the following information:
 
 * The name of the spreadsheet to import from
 * The number of rows updated from the spreadsheet
-
 
 ## Sheets credentials
 
