@@ -76,3 +76,21 @@ The transform phase involves manipulating the data in some way, such as cleaning
 ### Load
 
 The load phase involves writing the transformed data to a target destination, such as a database or data warehouse. The scripts in this project include functions and methods for loading the data into a variety of target systems, including popular databases like MySQL and PostgreSQL, as well as cloud-based data warehouses like Amazon Redshift and Google BigQuery.
+
+
+## The Import Command Example
+
+The `import` command allows you to import data from a spreadsheet into a database.
+
+To use the `import` command, build it from the source code using the `go build` command. Once the binary is built, you can run it with the `import` flag.
+
+For example:
+
+```bash
+./go-workers import
+```
+
+The `import` command will prompt you for the following information:
+
+* The name of the spreadsheet to import from
+* The number of rows updated from the spreadsheet
