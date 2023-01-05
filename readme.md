@@ -94,3 +94,18 @@ The `import` command will prompt you for the following information:
 
 * The name of the spreadsheet to import from
 * The number of rows updated from the spreadsheet
+
+
+## Sheets credentials
+
+Here are the instructions to generate a service account JSON file in the Google Cloud Console:
+
+- Go to the Google Cloud Console.
+- Click on the "Select a project" dropdown at the top of the page and select the project you want to create the service account for.
+- In the left sidebar, navigate to the "IAM & Admin" section and click on the "Service accounts" link.
+- Click the "Create Service Account" button.
+- Enter a name and description for the service account, and click the "Create" button.
+- On the next page, you can grant the service account permissions by assigning it roles. Click the "Continue" button when you're done.
+- Click the "Create Key" button and choose the "JSON" key type. Click the "Create" button to download the JSON file.
+- This JSON file contains the private key and other information needed to authenticate the service account. You can use it to authenticate and access Google APIs from your server or application.
+
