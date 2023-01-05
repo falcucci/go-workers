@@ -112,3 +112,9 @@ Here are the instructions to generate a service account JSON file in the Google 
 - Click the "Create Key" button and choose the "JSON" key type. Click the "Create" button to download the JSON file.
 - This JSON file contains the private key and other information needed to authenticate the service account. You can use it to authenticate and access Google APIs from your server or application.
 
+## Use Cases for the Import Command
+
+The `import` command can be used to import data from a spreadsheet into a database. This can be useful for a variety of use cases, including:
+- keep values up-to-date in case of changes (health check) *you would also need a consumer to achieve this*;
+- make it visible up-to-date in third party applications (e.g. Google Data Studio, Grafana, your own website, your own dashboard);
+- import data from a spreadsheet into a database to use it in a data warehouse;
