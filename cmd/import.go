@@ -5,6 +5,8 @@ import (
 	"go-workers/database"
 	extractor "go-workers/extractor/google"
 	"go-workers/structs"
+	"log"
+	"math/rand"
 	"strconv"
 	"strings"
 
@@ -31,7 +33,7 @@ func UpdateRows() {
 	var DB = database.DB
 	transaction := DB.Begin()
 
-	temp := "temp"
+	temp := "temp_people"
 	table := "people"
 	execution := ShouldCreateTempTable(transaction, temp, table)
 	if execution.Error != nil {
@@ -51,13 +53,37 @@ func UpdateRows() {
 	println("Done truncating temporary table")
 
 	println("Inserting values into temporary table")
-	insert := shouldInsertPeopleTempValues(transaction, temp)
+	insert_temp := shouldInsertPeopleTempValues(transaction, temp)
+	if insert_temp.Error != nil {
+		transaction.Rollback()
+		panic(insert_temp.Error)
+	}
+	fmt.Printf("Inserted %d records in the temporary table\n\n", insert_temp.RowsAffected)
+	println("Done inserting values into temporary table")
+
+	println("Inserting values into people table")
+	insert := shouldInsertPeopleValues(transaction)
 	if insert.Error != nil {
 		transaction.Rollback()
 		panic(insert.Error)
 	}
-	println("Done inserting values into temporary table")
 
+	fmt.Printf("Inserted %d records in the people table\n\n", insert.RowsAffected)
+	println("Done inserting values into people table")
+
+	fmt.Println(`Checking new seller values to update`)
+	update := shouldUpdatePeopleValues(transaction)
+	if update.Error != nil {
+		// rollback the transaction in case of error
+		transaction.Rollback()
+		log.Fatal(update.Error)
+	}
+	fmt.Printf(
+		"Updated %d records in the people table\n\n",
+		update.RowsAffected,
+	)
+
+	transaction.Commit()
 }
 
 // Method to create a non-existent temporary table with the default schema from an
@@ -90,8 +116,7 @@ func getInsertPeopleQuery(tempTable string) string {
 	pplSheetValues := extractor.GetPeopleSheetValues()
 	people := formatPeopleValues(pplSheetValues)
 	insertQuery :=
-		`INSERT INTO %s (name, surname)
-		 VALUES %s`
+		`INSERT INTO %s (id, name, surname) VALUES %s`
 	query := fmt.Sprintf(insertQuery, tempTable, people)
 	return query
 }
@@ -104,11 +129,15 @@ func formatPeopleValues(
 	var s = []string{}
 	for _, line := range people.Values {
 		person := structs.Person{}
+		// generate random number in golang to use as id
+		// format float64 to int to use as id
+		person.Id = int(GenerateRandomNumber())
 		person.Name = line[0].(string)
 		person.Surname = line[1].(string)
 
 		s = append(s, fmt.Sprintf(
-			"('%s', '%s')",
+			"(%d, '%s', '%s')",
+			person.Id,
 			person.Name,
 			person.Surname,
 		))
@@ -116,4 +145,53 @@ func formatPeopleValues(
 	v := strconv.Quote(strings.Join(s, ", "))
 	v = v[1 : len(v)-1]
 	return v
+}
+
+// This Method will generate a random int value
+// with no specific upper or lower limits.
+func GenerateRandomNumber() int {
+	// Seed the generator with the current time
+	return rand.Intn(100000)
+}
+
+// Method to compare values with the temporary
+// table and insert people if the people exists
+// in the sheet and not exists in the database.
+func shouldInsertPeopleValues(db *gorm.DB) *gorm.DB {
+	insertQuery := `
+		INSERT INTO people
+		(
+			id,
+			name,
+			surname
+		) (
+		SELECT
+			tp.id,
+			tp.name,
+			tp.surname
+		FROM
+			temp_people tp
+		LEFT JOIN
+			people p
+		ON (tp.id = p.id)
+		WHERE
+			p.id is null)`
+	return db.Exec(insertQuery)
+}
+
+// Method to compare values with the temporary
+// table and update people if the people exists
+// in the sheet and exists in the database.
+func shouldUpdatePeopleValues(db *gorm.DB) *gorm.DB {
+	updateQuery := `
+		UPDATE people p
+		SET
+			id = tp.id,
+			name = tp.name,
+			surname = tp.surname
+		FROM
+			temp_people tp
+		WHERE
+			p.id = tp.id AND ( p.name != tp.name OR p.surname != tp.surname )`
+	return db.Exec(updateQuery)
 }
