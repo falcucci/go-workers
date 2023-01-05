@@ -83,6 +83,18 @@ func UpdateRows() {
 		update.RowsAffected,
 	)
 
+	fmt.Println(`Checking possible people to remove`)
+	delete := shouldDeletePeopleRow(transaction)
+	if delete.Error != nil {
+		// rollback the transaction in case of error
+		transaction.Rollback()
+		log.Fatal(delete.Error)
+	}
+	fmt.Printf(
+		"Removing %d seller's values in the people table\n\n",
+		delete.RowsAffected,
+	)
+
 	transaction.Commit()
 }
 
@@ -194,4 +206,21 @@ func shouldUpdatePeopleValues(db *gorm.DB) *gorm.DB {
 		WHERE
 			p.id = tp.id AND ( p.name != tp.name OR p.surname != tp.surname )`
 	return db.Exec(updateQuery)
+}
+
+// Method to compare values with the temporary
+// table and delete people if the people exists
+// in the database and not exists in the sheet.
+func shouldDeletePeopleRow(db *gorm.DB) *gorm.DB {
+	deleteQuery := `
+		DELETE FROM people p
+		WHERE NOT EXISTS (
+			SELECT 1
+			FROM temp_people tp
+			WHERE (
+				p.id = tp.id 
+				AND p.name = tp.name AND p.surname = tp.surname
+			)
+		)`
+	return db.Exec(deleteQuery)
 }
